@@ -1,9 +1,10 @@
-package com.example.northwind.example;
-
+package uk.ac.serc.customers.darren;
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
 
 public class App 
 {
@@ -14,7 +15,10 @@ public class App
         String database = "northwind";
         String user = "cf_readonly_login";
         String password = "BDtrp7ajxtzoMpF4WN4rGDrfIDAc0xIy";
-        String connectionUrl = "jdbc:sqlserver://" + url + ":1433;databaseName=" + database + ";user="+ user + ";password=" + password +";";
+        String connectionUrl = "jdbc:sqlserver://" + url + ":1433;databaseName=" 
+        + database + ";user="+ user + ";password=" + password +";";
+
+        ArrayList <String> customers = new ArrayList<String>();
     
         System.out.println(connectionUrl);
 
@@ -28,9 +32,24 @@ public class App
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery(sql)) {
                     while (resultSet.next()) {
-                        System.out.println(resultSet.getString("CustomerID") 
+
+                        // customers.add(new Customer(resultSet.getString("CustomerID",
+                        // resultSet.getString("CompanyName"),
+                        // resultSet.getString("ContactName")));
+
+                        customers.add(resultSet.getString("CustomerID") 
                         + " | " + resultSet.getString("CompanyName") + " | " 
                         + resultSet.getString("ContactName"));
+
+
+                        // System.out.println(resultSet.getString("CustomerID") 
+                        // + " | " + resultSet.getString("CompanyName") + " | " 
+                        // + resultSet.getString("ContactName"));
+
+                        for (int x =0; x < customers.size(); x++){
+                            System.out.print(customers);
+                            System.out.println("");
+                        }
                     }
                 }
                 connection.close();
